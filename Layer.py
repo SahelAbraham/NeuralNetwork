@@ -2,7 +2,7 @@ import numpy as np
 #A class that represents a layer in a neural network
 
 class Layer():
-    def __init__(self, nodes_vector=None, bias_vector=None, weights_matrix=None):
+    def __init__(self, nodes_vector: np.ndarray=None, bias_vector=None, weights_matrix=None):
         self.nodes = nodes_vector
         self.weights_matrix = weights_matrix
         self.biases = bias_vector
