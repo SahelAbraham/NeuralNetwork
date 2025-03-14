@@ -2,8 +2,10 @@ from Layer import Layer
 import numpy as np
 #The Neural Network, which is an array of layers
 
-def __init__(self, layer_params=list):
+#takes in either a list that specifies 
+def __init__(self, layer_params=list, network_name="network"):
     self.network = []
+    self.name = network_name
     
     #Take in a list of numbers. The size of that list is how many layers there are, and each value in the list is the size of each layer
     for i in layer_params:
