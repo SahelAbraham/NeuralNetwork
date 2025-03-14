@@ -19,7 +19,9 @@ class Layer():
     #Take in a numpy array
     def setBiases(self, new_biases):
         if new_biases.size != self.nodes.size:
-            raise ValueError(f"The biases must be an array of size {self.nodes_vector.size} but is instead {new_biases.size}")
+            num1 = self.nodes.size
+            num2 = new_biases.size
+            raise ValueError(f"The biases must be an array of size {num1} but is instead {num2}")
         self.biases = new_biases
     
     def getBiases(self):
@@ -35,5 +37,8 @@ class Layer():
     def __str__(self):
         out = ""
         for i in range(len(self.nodes)):
-            out += f"[{self.nodes[i]}] b={self.biases[i]}\n"
+            if self.weights_matrix is not None:
+                out += f"[{self.nodes[i]}] ({self.biases[i]}) {self.weights_matrix[:, i]}\n"
+            else:
+                out += f"[{self.nodes[i]}] ({self.biases[i]})\n"
         return out.rstrip()
