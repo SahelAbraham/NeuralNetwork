@@ -38,7 +38,7 @@ class Layer():
         out = ""
         for i in range(len(self.nodes)):
             if self.weights_matrix is not None:
-                out += f"[{self.nodes[i]}] ({self.biases[i]}) {self.weights_matrix[:, i]}\n"
+                out += f"[{self.nodes[i]}] ({self.biases[i]}) {self.weights_matrix[:,i]}\n"
             else:
                 out += f"[{self.nodes[i]}] ({self.biases[i]})\n"
         return out.rstrip()

@@ -1,26 +1,41 @@
 from Layer import Layer
 import numpy as np
+import csv
 #The Neural Network, which is an array of layers
 
-#takes in either a list that specifies 
-def __init__(self, layer_params=list, network_name="network"):
-    self.network = []
-    self.name = network_name
-    
-    #Take in a list of numbers. The size of that list is how many layers there are, and each value in the list is the size of each layer
-    for i in layer_params:
-        self.network.append(Layer(np.zeros([layer_params[i]])))
-    
-    #Initializing the weights matrix for each layer except for the output layer, which doesn't need any weights
-    for i in range(self.network.size - 1):
-        weights_matrix = np.ones(self.network[i], self.network[i+1])
-        self.network[i].setWeights(weights_matrix)
+class NeuralNetwork():
+    #takes in a csv file that contains the layers, values, weights, and sizes
+    def __init__(self, filename = "default.csv", network_name="network"):
+        #Initialize the network list and name it
+        self.network = []
+        self.name = network_name
+        try:
+            #Process the csv file and add each layer to the network
+            with open('Network1.csv', 'r') as file:
+                csvreader = csv.reader(file)
+                for row in csvreader:
+                    if row[0] == 'out':
+                        size = int(row[1])
+                        layer = Layer(np.array(row[2:size+2]).astype(int), np.array(row[size+2:2*size+2]))
+                    else:
+                        size = int(row[0])
+                        weights = np.empty(size)
+                        for i in range(2*size + 1, len(row), size):
+                            weights = np.vstack([weights, row[i:i+size]])
+                        layer = Layer(np.array(row[1:size+1]).astype(int), np.array(row[size+1:2*size + 1]).astype(int), np.delete(weights, 0, axis = 0).astype(int))
+                    self.network.append(layer)
+        except:
+            print("There is likely something wrong with the csv file name or formatting")
+        else:
+            print("Network successfully initialized")
 
-    #Confirmation message
-    print("All Layers Initialized")
-
-def __str__(self):
-    output = "///////////////////////////"
-    for layer in self.network:
-        output += layer.__str__()
-    return output + "\n///////////////////////////"
+    def __str__(self):
+        output = "///////////////////////////\n"
+        for i, layer in enumerate(self.network):
+            if i == 0:
+                output += f"Input Layer\n{layer.__str__()}\n\n"
+            if i == len(self.network) - 1:
+                output += f"Output Layer\n{layer.__str__()}\n"
+            else:
+                output += f"Hidden Layer\n{layer.__str__()}\n\n"
+        return output + "///////////////////////////"
