@@ -35,7 +35,11 @@ class Layer():
         return self.weights_matrix
     
     def update_next_layer(self, nextLayer):
-        x = np.add(np.matmul(self.weights_matrix, self.nodes), nextLayer.getBiases())
+        test = np.matmul(self.weights_matrix, self.nodes)
+        print(self.weights_matrix)
+        print(self.nodes)
+        print(test)
+        x = np.add(test, nextLayer.getBiases())
         #The sigmoid function
         return 1/(1 + np.exp(-x))
     

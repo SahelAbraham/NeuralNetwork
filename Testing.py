@@ -6,3 +6,5 @@ from NeuralNetwork import NeuralNetwork
 
 network = NeuralNetwork("Network1.csv", "Test Network")
 print(network)
+network.process()
+print(network)
